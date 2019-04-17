@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" charset="utf-8" />
+    <title>Pins perso</title>
+
+    <script type='text/javascript'>
+        var map;
+        var velov;
+        //foreach (var velo in @ViewData["velov"] as List<Velov>) { velov = velo; }
+
+        function GetMap() {
+            map = new Microsoft.Maps.Map('#myMap', {
+                //center: new Microsoft.Maps.Location(velov[1].properties.lattitude, velov[1].properties.longitude)
+                center: new Microsoft.Maps.Location(parseFloat('@ViewData["pinLat(1)"]'.replace(",",".")), parseFloat('@ViewData["pinLong(1)"]'.replace(",",".")))
+            });
+
+            /*for(var velo in ViewData["velov"])
+            {
+                map.entities.push(new Microsoft.Maps.Pushpin(new Microsoft.Maps.Location(velo.properties.lattitude, velo.properties.longitude), {
+                    title: velo.properties.name,
+                    subTitle: velo.properties.address,
+                    text: "1"
+                }));
+            }*/
+
+            map.entities.push(new Microsoft.Maps.Pushpin(new Microsoft.Maps.Location(parseFloat('@ViewData["pinLat(1)"]'.replace(",",".")), parseFloat('@ViewData["pinLong(1)"]'.replace(",","."))), {
+                title: "@Html.Raw(ViewData["pinName(1)"])",
+                subTitle: "@Html.Raw(ViewData["pinAddress(1)"])",
+                text: "1"
+            }));
+
+            map.entities.push(new Microsoft.Maps.Pushpin(new Microsoft.Maps.Location(parseFloat('@ViewData["pinLat(2)"]'.replace(",",".")), parseFloat('@ViewData["pinLong(2)"]'.replace(",","."))), {
+                title: "@Html.Raw(ViewData["pinName(2)"])",
+                subTitle: "@Html.Raw(ViewData["pinAddress(2)"])",
+                text: "2"
+            }));
+
+            map.entities.push(new Microsoft.Maps.Pushpin(new Microsoft.Maps.Location(parseFloat('@ViewData["pinLat(3)"]'.replace(",",".")), parseFloat('@ViewData["pinLong(3)"]'.replace(",","."))), {
+                title: "@Html.Raw(ViewData["pinName(3)"])",
+                subTitle: "@Html.Raw(ViewData["pinAddress(3)"])",
+                text: "3"
+            }));
+        }
+    </script>
+    <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=AvSrPkb2t6hAB6SBcbt6Qjo-D1FgiZknZViNRh6luGYMj8ZQqq3mtEcuxk2LLUeh' async defer></script>
+</head>
+<body>
+    <h2>@ViewData["Title"]</h2>
+    <div id="myMap" style="position:relative;width:800px;height:600px;"></div>
+</body>
+</html>
